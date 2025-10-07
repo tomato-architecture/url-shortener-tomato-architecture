@@ -10,7 +10,8 @@ This is a URL Shortener Application following [Tomato Architecture](https://toma
 ## Modules
 * url-shortener-core: The core business logic of the URL Shortener application.
 * url-shortener-api: The REST API of the URL Shortener application.
-* url-shortener-web: The web frontend of the URL Shortener application.
+* url-shortener-web: The web application of the URL Shortener application.
+* url-shortener-cli: The CLI app of the URL Shortener application.
 
 ## Tech Stack
 * Java
@@ -45,3 +46,16 @@ Swagger UI: http://localhost:8080/swagger-ui/index.html
 Use the following credentials to login:
 * Admin User: `admin@gmail.com/admin`
 * Regular User: `siva@gmail.com/secret`
+
+### Start URL Shortener CLI Application
+Run `UrlShortenerCliApplication.java` from your IDE.
+
+```shell
+shell:> help
+shell:> list
+shell:> list -p 1
+shell:> list --page 2
+shell:>create -u https://sivalabs.dev
+shell:>create --url https://sivalabs.in
+shell:> exit
+```
