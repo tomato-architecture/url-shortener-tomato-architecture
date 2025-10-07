@@ -3,13 +3,9 @@ package com.sivalabs.urlshortener.api.controllers;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.sivalabs.urlshortener.BaseIT;
-import com.sivalabs.urlshortener.api.dtos.JwtToken;
-import com.sivalabs.urlshortener.api.utils.JwtTokenHelper;
-import com.sivalabs.urlshortener.domain.entities.User;
 import com.sivalabs.urlshortener.domain.models.PagedResult;
 import com.sivalabs.urlshortener.domain.models.ShortUrlDto;
 import com.sivalabs.urlshortener.domain.repositories.ShortUrlRepository;
-import com.sivalabs.urlshortener.domain.repositories.UserRepository;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import org.junit.jupiter.api.Test;
@@ -22,12 +18,6 @@ import org.springframework.test.web.servlet.assertj.MvcTestResult;
 
 @Sql("/test-data.sql")
 class UrlShortenerRestControllerTests extends BaseIT {
-
-    @Autowired
-    JwtTokenHelper jwtTokenHelper;
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private ShortUrlRepository shortUrlRepository;
@@ -363,11 +353,5 @@ class UrlShortenerRestControllerTests extends BaseIT {
                 .hasStatus(HttpStatus.FOUND)
                 .headers()
                 .hasValue("Location", "http://localhost:8080/not-found");
-    }
-
-    private String getJwtTokenHeaderValue(String email) {
-        User user = userRepository.findByEmail(email).orElseThrow();
-        JwtToken jwtToken = jwtTokenHelper.generateToken(user);
-        return "Bearer " + jwtToken.token();
     }
 }

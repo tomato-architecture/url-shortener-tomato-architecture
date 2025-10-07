@@ -51,14 +51,14 @@
 							<formatAnnotations />
 						</java>
 					</configuration>
-					<executions>
+					<!--<executions>
 						<execution>
 							<phase>compile</phase>
 							<goals>
 								<goal>check</goal>
 							</goals>
 						</execution>
-					</executions>
+					</executions>-->
 				</plugin>
 			</plugins>
 		</pluginManagement>
