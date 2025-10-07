@@ -51,11 +51,11 @@ Use the following credentials to login:
 Run `UrlShortenerCliApplication.java` from your IDE.
 
 ```shell
-shell:> help
-shell:> list
-shell:> list -p 1
-shell:> list --page 2
+shell:>help
+shell:>list
+shell:>list -p 1
+shell:>list --page 2
 shell:>create -u https://sivalabs.dev
 shell:>create --url https://sivalabs.in
-shell:> exit
+shell:>exit
 ```
