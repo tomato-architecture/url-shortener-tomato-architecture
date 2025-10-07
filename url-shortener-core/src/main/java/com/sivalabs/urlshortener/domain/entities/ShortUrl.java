@@ -8,8 +8,8 @@ import org.hibernate.annotations.ColumnDefault;
 @Table(name = "short_urls")
 public class ShortUrl {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "short_urls_id_gen")
-    @SequenceGenerator(name = "short_urls_id_gen", sequenceName = "short_urls_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "short_url_id_gen")
+    @SequenceGenerator(name = "short_url_id_gen", sequenceName = "short_url_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Long id;
 

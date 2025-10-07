@@ -1,8 +1,8 @@
 -- admin pwd: admin
 -- siva pwd: secret
-INSERT INTO users (email, password, name, role)
-VALUES ('admin@gmail.com', '$2a$10$Vq7kPWnWwz7isGGE/8gxJOLdZCRFsBzqU6swEprp66kGvK1UdbQjy', 'Administrator', 'ROLE_ADMIN'),
-       ('siva@gmail.com', '$2a$10$FjomyZihHtoW7sUFuypX2u3p.orW5nuYOpNA8iK9FPAp1KeFY2iyi', 'Siva', 'ROLE_USER');
+INSERT INTO users (id, email, password, name, role)
+VALUES (1, 'admin@gmail.com', '$2a$10$Vq7kPWnWwz7isGGE/8gxJOLdZCRFsBzqU6swEprp66kGvK1UdbQjy', 'Administrator', 'ROLE_ADMIN'),
+       (2, 'siva@gmail.com', '$2a$10$FjomyZihHtoW7sUFuypX2u3p.orW5nuYOpNA8iK9FPAp1KeFY2iyi', 'Siva', 'ROLE_USER');
 
 INSERT INTO short_urls (short_key, original_url, created_by, created_at, expires_at, is_private, click_count)
 VALUES ('rs1Aed', 'https://www.sivalabs.in/code-offline-with-local-ai-ollama', 1, TIMESTAMP '2024-07-15', NULL, FALSE,

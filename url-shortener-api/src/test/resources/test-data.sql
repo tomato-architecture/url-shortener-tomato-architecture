@@ -1,8 +1,8 @@
 delete from short_urls;
 delete from users;
 
-alter sequence users_id_seq restart with 100;
-alter sequence short_urls_id_seq restart with 100;
+alter sequence user_id_seq restart with 100;
+alter sequence short_url_id_seq restart with 100;
 
 INSERT INTO users (id, email, password, name, role) VALUES
 (1, 'admin@gmail.com', '$2a$10$Ewl5M5WzAvGl3./qaT8od.Sz1vj34GkYPMEOnZSpR6351NCRIVr2e', 'Administrator', 'ROLE_ADMIN'),

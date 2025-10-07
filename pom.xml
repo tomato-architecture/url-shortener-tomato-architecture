@@ -25,6 +25,7 @@
 		<module>url-shortener-core</module>
 		<module>url-shortener-web</module>
 		<module>url-shortener-api</module>
+		<module>url-shortener-cli</module>
 	</modules>
 
 	<build>

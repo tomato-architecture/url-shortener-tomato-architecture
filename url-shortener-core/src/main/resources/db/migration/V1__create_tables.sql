@@ -1,6 +1,8 @@
+create sequence user_id_seq start with 1000 increment by 1;
+
 CREATE TABLE users
 (
-    id         BIGSERIAL PRIMARY KEY,
+    id         BIGINT NOT NULL DEFAULT nextval('user_id_seq') PRIMARY KEY,
     email      VARCHAR(100) NOT NULL UNIQUE,
     password   VARCHAR(100) NOT NULL,
     name       VARCHAR(100) NOT NULL,
@@ -8,9 +10,11 @@ CREATE TABLE users
     created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+create sequence short_url_id_seq start with 1000 increment by 1;
+
 CREATE TABLE short_urls
 (
-    id           BIGSERIAL PRIMARY KEY,
+    id         BIGINT NOT NULL DEFAULT nextval('short_url_id_seq') PRIMARY KEY,
     short_key    VARCHAR(10) NOT NULL UNIQUE,
     original_url TEXT        NOT NULL,
     is_private   BOOLEAN     NOT NULL DEFAULT FALSE,
