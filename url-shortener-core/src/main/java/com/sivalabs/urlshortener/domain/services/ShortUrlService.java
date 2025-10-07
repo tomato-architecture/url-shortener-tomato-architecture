@@ -5,6 +5,7 @@ import static java.time.temporal.ChronoUnit.*;
 
 import com.sivalabs.urlshortener.CoreProperties;
 import com.sivalabs.urlshortener.domain.entities.ShortUrl;
+import com.sivalabs.urlshortener.domain.exceptions.BadRequestException;
 import com.sivalabs.urlshortener.domain.exceptions.InvalidURLException;
 import com.sivalabs.urlshortener.domain.models.CreateShortUrlCmd;
 import com.sivalabs.urlshortener.domain.models.PagedResult;
@@ -29,6 +30,8 @@ public class ShortUrlService {
     private final EntityMapper entityMapper;
     private final CoreProperties properties;
     private final UserRepository userRepository;
+
+    private static final int MAX_EXPIRATION_DAYS = 365;
 
     public ShortUrlService(
             ShortUrlRepository shortUrlRepository,
@@ -81,15 +84,17 @@ public class ShortUrlService {
 
     @Transactional
     public ShortUrlDto createShortUrl(CreateShortUrlCmd cmd) {
+        var normalizedOriginalUrl = normalizeOriginalUrl(cmd.originalUrl());
         if (properties.validateOriginalUrl()) {
-            boolean urlExists = UrlExistenceValidator.isUrlExists(cmd.originalUrl());
+            boolean urlExists = UrlExistenceValidator.isUrlExists(normalizedOriginalUrl);
             if (!urlExists) {
-                throw InvalidURLException.of(cmd.originalUrl());
+                throw InvalidURLException.of(normalizedOriginalUrl);
             }
         }
+        Integer expirationDays = resolveExpirationDays(cmd.expirationInDays());
         var shortKey = generateUniqueShortKey();
         var shortUrl = new ShortUrl();
-        shortUrl.setOriginalUrl(cmd.originalUrl());
+        shortUrl.setOriginalUrl(normalizedOriginalUrl);
         shortUrl.setShortKey(shortKey);
         if (cmd.userId() == null) {
             shortUrl.setCreatedBy(null);
@@ -98,8 +103,7 @@ public class ShortUrlService {
         } else {
             shortUrl.setCreatedBy(userRepository.findById(cmd.userId()).orElseThrow());
             shortUrl.setIsPrivate(cmd.isPrivate() != null && cmd.isPrivate());
-            shortUrl.setExpiresAt(
-                    cmd.expirationInDays() != null ? Instant.now().plus(cmd.expirationInDays(), DAYS) : null);
+            shortUrl.setExpiresAt(expirationDays != null ? Instant.now().plus(expirationDays, DAYS) : null);
         }
         shortUrl.setClickCount(0L);
         shortUrl.setCreatedAt(Instant.now());
@@ -123,9 +127,12 @@ public class ShortUrlService {
                 && !Objects.equals(shortUrl.getCreatedBy().getId(), userId)) {
             return Optional.empty();
         }
+        int updatedRows = shortUrlRepository.incrementClickCountById(shortUrl.getId());
+        if (updatedRows == 0) {
+            return Optional.empty();
+        }
         shortUrl.setClickCount(shortUrl.getClickCount() + 1);
-        shortUrlRepository.save(shortUrl);
-        return shortUrlOptional.map(entityMapper::toShortUrlDto);
+        return Optional.of(entityMapper.toShortUrlDto(shortUrl));
     }
 
     private String generateUniqueShortKey() {
@@ -141,5 +148,29 @@ public class ShortUrlService {
         if (ids != null && !ids.isEmpty()) {
             shortUrlRepository.deleteAllByIdInBatch(ids);
         }
+    }
+
+    private Integer resolveExpirationDays(Integer expirationInDays) {
+        if (expirationInDays == null) {
+            return null;
+        }
+        if (expirationInDays < 1 || expirationInDays > MAX_EXPIRATION_DAYS) {
+            throw new BadRequestException("Expiration must be between 1 and " + MAX_EXPIRATION_DAYS + " days");
+        }
+        return expirationInDays;
+    }
+
+    private String normalizeOriginalUrl(String originalUrl) {
+        if (originalUrl == null) {
+            throw new InvalidURLException("Original URL is required");
+        }
+        String trimmed = originalUrl.trim();
+        if (trimmed.isEmpty()) {
+            throw new InvalidURLException("Original URL is required");
+        }
+        if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) {
+            return trimmed;
+        }
+        return "http://" + trimmed;
     }
 }

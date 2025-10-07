@@ -40,10 +40,9 @@ class ShortUrlRestController {
 
     @PostMapping("/short-urls")
     ResponseEntity<ShortUrlDto> createShortUrl(@RequestBody @Valid CreateShortUrlRequest request) {
-        var originalUrl = request.getCleanedOriginalUrl();
         var isPrivate = request.isPrivate() != null && request.isPrivate();
         var cmd = new CreateShortUrlCmd(
-                originalUrl, isPrivate, request.expirationInDays(), securityUtils.getCurrentUserId());
+                request.originalUrl(), isPrivate, request.expirationInDays(), securityUtils.getCurrentUserId());
         var shortUrlDto = shortUrlService.createShortUrl(cmd);
         return ResponseEntity.status(HttpStatus.CREATED).body(shortUrlDto);
     }

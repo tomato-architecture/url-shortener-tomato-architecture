@@ -25,4 +25,8 @@ public interface ShortUrlRepository extends JpaRepository<ShortUrl, Long> {
 
     @Query("select u from ShortUrl u left join fetch u.createdBy")
     Page<ShortUrl> findAllShortUrls(Pageable pageable);
+
+    @Modifying
+    @Query("update ShortUrl su set su.clickCount = su.clickCount + 1 where su.id = :id")
+    int incrementClickCountById(Long id);
 }

@@ -1,18 +1,10 @@
 package com.sivalabs.urlshortener.api.dtos;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
 public record CreateShortUrlRequest(
         @NotBlank(message = "Original URL is required") String originalUrl,
         Boolean isPrivate,
-        Integer expirationInDays) {
-    @JsonIgnore
-    public String getCleanedOriginalUrl() {
-        String originalUrl = this.originalUrl();
-        if (!originalUrl.startsWith("http://") && !originalUrl.startsWith("https://")) {
-            originalUrl = "http://" + originalUrl;
-        }
-        return originalUrl;
-    }
-}
+        @Min(value = 1, message = "Expiration must be at least 1 day") @Max(value = 365, message = "Expiration cannot exceed 365 days") Integer expirationInDays) {}

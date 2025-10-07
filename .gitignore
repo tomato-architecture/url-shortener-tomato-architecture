@@ -32,3 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 *.log
+
+### AI ###
+review.md
+suggestions.md
+plan.md
