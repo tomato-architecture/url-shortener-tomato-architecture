@@ -8,14 +8,15 @@ This is a URL Shortener Application following [Tomato Architecture](https://toma
 ![url-shortener-tomato-architecture.png](url-shortener-tomato-architecture.png)
 
 ## Modules
-* url-shortener-core: The core business logic of the URL Shortener application.
-* url-shortener-api: The REST API of the URL Shortener application.
-* url-shortener-web: The web application of the URL Shortener application.
-* url-shortener-cli: The CLI app of the URL Shortener application.
+* **url-shortener-core:** The core business logic of the URL Shortener application.
+* **url-shortener-api:** The REST API of the URL Shortener application.
+* **url-shortener-web:** The web application of the URL Shortener application.
+* **url-shortener-cli:** The CLI app of the URL Shortener application.
 
 ## Tech Stack
 * Java
 * Spring Boot
+* Spring Shell
 * Spring Security
 * Spring Data JPA
 * PostgreSQL
