@@ -15,7 +15,7 @@ class AdminControllerTests extends BaseIT {
     void shouldRedirectToLoginWhenUnauthenticated() {
         var result = mockMvcTester.get().uri("/admin/dashboard").exchange();
 
-        assertThat(result).hasStatus(HttpStatus.FOUND).hasHeader("Location", "http://localhost/login");
+        assertThat(result).hasStatus(HttpStatus.FOUND).hasHeader("Location", "/login");
     }
 
     @Test

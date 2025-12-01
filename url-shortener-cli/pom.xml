@@ -10,7 +10,6 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>url-shortener-cli</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <name>url-shortener-cli</name>
 
     <properties>

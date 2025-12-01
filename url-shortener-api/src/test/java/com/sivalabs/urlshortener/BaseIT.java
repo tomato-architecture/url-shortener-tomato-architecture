@@ -7,8 +7,8 @@ import com.sivalabs.urlshortener.api.utils.JwtTokenHelper;
 import com.sivalabs.urlshortener.domain.entities.User;
 import com.sivalabs.urlshortener.domain.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.assertj.MockMvcTester;
 

@@ -103,7 +103,7 @@ class ShortUrlControllerTests extends BaseIT {
     void shouldRedirectToLoginWhenAccessingMyUrlsUnauthenticated() {
         var result = mockMvcTester.get().uri("/my-urls").exchange();
 
-        assertThat(result).hasStatus(HttpStatus.FOUND).hasHeader("Location", "http://localhost/login");
+        assertThat(result).hasStatus(HttpStatus.FOUND).hasHeader("Location", "/login");
     }
 
     @Test

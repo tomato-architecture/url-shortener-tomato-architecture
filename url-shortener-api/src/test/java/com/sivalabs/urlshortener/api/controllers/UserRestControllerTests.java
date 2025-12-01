@@ -19,8 +19,7 @@ class UserRestControllerTests extends BaseIT {
                 .post()
                 .uri("/api/login")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(
-                        """
+                .content("""
                         {
                             "email": "admin@gmail.com",
                             "password": "admin"
@@ -45,8 +44,7 @@ class UserRestControllerTests extends BaseIT {
                 .post()
                 .uri("/api/users")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(
-                        """
+                .content("""
                         {
                             "email": "testuser@gmail.com",
                             "password": "secret123",

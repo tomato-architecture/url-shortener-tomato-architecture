@@ -44,8 +44,7 @@ class UrlShortenerRestControllerTests extends BaseIT {
                 .post()
                 .uri("/api/short-urls")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(
-                        """
+                .content("""
                         {
                             "originalUrl": "https://start.spring.io/"
                         }
@@ -111,8 +110,7 @@ class UrlShortenerRestControllerTests extends BaseIT {
                 .uri("/api/short-urls")
                 .header(HttpHeaders.AUTHORIZATION, getJwtTokenHeaderValue("siva@gmail.com"))
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(
-                        """
+                .content("""
                         {
                             "originalUrl": "https://github.com",
                             "isPrivate": true
@@ -141,8 +139,7 @@ class UrlShortenerRestControllerTests extends BaseIT {
                 .uri("/api/short-urls")
                 .header(HttpHeaders.AUTHORIZATION, getJwtTokenHeaderValue("siva@gmail.com"))
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(
-                        """
+                .content("""
                         {
                             "originalUrl": "https://stackoverflow.com",
                             "expirationInDays": 100
@@ -243,8 +240,7 @@ class UrlShortenerRestControllerTests extends BaseIT {
                 .uri("/api/short-urls")
                 .header(HttpHeaders.AUTHORIZATION, getJwtTokenHeaderValue("admin@gmail.com"))
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(
-                        """
+                .content("""
                         {
                         "ids": [1, 5]
                         }
@@ -269,8 +265,7 @@ class UrlShortenerRestControllerTests extends BaseIT {
                 .uri("/api/short-urls")
                 .header(HttpHeaders.AUTHORIZATION, getJwtTokenHeaderValue("siva@gmail.com"))
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(
-                        """
+                .content("""
                         {
                         "ids": [5, 6]
                         }
@@ -298,8 +293,7 @@ class UrlShortenerRestControllerTests extends BaseIT {
                 .uri("/api/short-urls")
                 .header(HttpHeaders.AUTHORIZATION, getJwtTokenHeaderValue("siva@gmail.com"))
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(
-                        """
+                .content("""
                         {
                         "ids": [1, 2, 3]
                         }
@@ -322,8 +316,7 @@ class UrlShortenerRestControllerTests extends BaseIT {
                 .post()
                 .uri("/api/short-urls")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(
-                        """
+                .content("""
                         {
                             "originalUrl": "invalid-url"
                         }
